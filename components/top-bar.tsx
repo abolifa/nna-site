@@ -31,14 +31,14 @@ const TopBar = () => {
 
         <div className="flex items-center gap-5">
           <a
-            href="https://www.facebook.com/NNA.KSA"
+            href="https://www.facebook.com/568249826380788"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-foreground hover:text-primary-foreground/80"
           >
             <Facebook className="w-5 h-5" />
           </a>
-          <a
+          {/* <a
             href="https://www.twitter.com/NNA_KSA"
             target="_blank"
             rel="noopener noreferrer"
@@ -53,7 +53,7 @@ const TopBar = () => {
             className="text-primary-foreground hover:text-primary-foreground/80"
           >
             <Linkedin className="w-5 h-5" />
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
