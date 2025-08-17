@@ -5,11 +5,12 @@ import api from "@/lib/api";
 import { getImageUrl } from "@/lib/helpers";
 import { Awareness } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React from "react";
 
-const page = () => {
+const SingleAwareness = () => {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["awareness", id],
@@ -19,7 +20,12 @@ const page = () => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="w-full flex items-center justify-center py-10">
+        <Loader className="animate-spin" />
+      </div>
+    );
   if (isError) return <ErrorComponent error={error} />;
 
   return (
@@ -55,4 +61,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SingleAwareness;

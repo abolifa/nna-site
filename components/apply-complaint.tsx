@@ -72,7 +72,6 @@ export default function ApplyComplaint() {
   const msg = form.watch("message") ?? "";
   const used = msg.length;
   const remaining = Math.max(0, MAX_CHARS - used);
-  const progress = Math.min(100, Math.round((used / MAX_CHARS) * 100));
 
   async function onSubmit(values: FormValues) {
     setServerError(null);

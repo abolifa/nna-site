@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://romuz.com.ly
+
+# Sitemaps
+Sitemap: https://romuz.com.ly/sitemap.xml

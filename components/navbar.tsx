@@ -28,11 +28,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Menu, ChevronRight, Search } from "lucide-react";
 import clsx from "clsx";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
+import { ModeToggle } from "./mode-toggle";
 
 export type NavLink = {
   label: string;
@@ -167,14 +168,6 @@ function DesktopNav() {
         </NavigationMenuList>
         <NavigationMenuViewport />
       </NavigationMenu>
-
-      <form action="/search" className="relative hidden xl:block">
-        <Input name="q" placeholder="ابحث..." className="w-72 pe-10" />
-        <Search
-          size={18}
-          className="absolute top-1/2 -translate-y-1/2 end-3 opacity-60"
-        />
-      </form>
     </div>
   );
 }
@@ -197,13 +190,6 @@ function MobileNav() {
             <SheetTitle className="text-base">القائمة الرئيسية</SheetTitle>
           </SheetHeader>
           <div className="p-2">
-            <form action="/search" className="relative p-2">
-              <Input name="q" placeholder="ابحث..." className="pe-10" />
-              <Search
-                size={18}
-                className="absolute top-1/2 -translate-y-1/2 end-4 opacity-60"
-              />
-            </form>
             <nav aria-label="Mobile">
               <Accordion type="single" collapsible className="px-2">
                 {menu.map((item) =>
@@ -279,10 +265,10 @@ function MobileNav() {
 
 export default function SiteNavbar() {
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur py-2">
+    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur py-3">
       <div className="container mx-auto max-w-6xl px-4 lg:px-0">
-        <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3 min-w-0 flex-1">
+        <div className="flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-3 min-w-0">
             <Image
               src="/logo.png"
               alt="Logo"
@@ -302,6 +288,9 @@ export default function SiteNavbar() {
           </Link>
           <DesktopNav />
           <MobileNav />
+          <div className="mr-auto">
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </header>

@@ -3,6 +3,7 @@
 import ErrorComponent from "@/components/error-component";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
 import React from "react";
 
 interface PrivacyPolicy {
@@ -20,7 +21,12 @@ const PrivacyPage = () => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="w-full flex items-center justify-center py-10">
+        <Loader className="animate-spin" />
+      </div>
+    );
   if (isError)
     return <ErrorComponent error={error} keyParam={"privacy-policy"} />;
 

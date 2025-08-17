@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import TopBar from "@/components/top-bar";
 import React from "react";
 import "leaflet/dist/leaflet.css";
+import SiteFooter from "@/components/footer";
 
 const SiteLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,6 +16,7 @@ const SiteLayout = ({ children }: { children: React.ReactNode }) => {
         <AnnounceComponent />
         <main className="mt-5">{children}</main>
       </div>
+      <SiteFooter />
     </div>
   );
 };

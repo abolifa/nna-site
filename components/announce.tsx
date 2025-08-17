@@ -7,12 +7,11 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowDown, ArrowUp, Pause, Play, Zap } from "lucide-react";
 import { Button } from "./ui/button";
 import { AnimatePresence, motion } from "framer-motion";
-import clsx from "clsx";
 
-const HOLD_MS = 3000; // how long each item stays visible
-const ENTER_MS = 0.28; // enter animation duration
-const EXIT_MS = 0.2; // exit animation duration
-const ADVANCE_MS = HOLD_MS + 80; // timer to trigger next (slightly before exit)
+const HOLD_MS = 5000;
+const ENTER_MS = 0.28;
+const EXIT_MS = 0.2;
+const ADVANCE_MS = HOLD_MS + 80;
 
 export default function AnnounceComponent() {
   const { data, isLoading, isError } = useQuery({
