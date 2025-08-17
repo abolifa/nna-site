@@ -21,21 +21,13 @@ import { Badge } from "@/components/ui/badge";
 import { Send, ShieldCheck, Loader2 } from "lucide-react";
 import api from "@/lib/api";
 
-const MAX_CHARS = 500;
-const MIN_CHARS = 10;
-const phoneRegex = /^\+?\d{8,15}$/;
-
 const formSchema = z.object({
   name: z.string().max(120).optional(),
-  phone: z
-    .string()
-    .optional()
-    .refine((v) => !v || phoneRegex.test(v), "Invalid phone number."),
+  phone: z.string().optional(),
   message: z
     .string()
-    .min(MIN_CHARS, `Message must be at least ${MIN_CHARS} characters.`)
-    .max(MAX_CHARS, `Max characters is ${MAX_CHARS}.`),
-  // keep honeypot
+    .min(10, `الرسالة يجب أن تكون 10 أحرف على الأقل.`)
+    .max(500, `الحد الأقصى لعدد الأحرف هو 500.`),
   hp_company: z.string().optional(),
 });
 
@@ -56,9 +48,6 @@ export default function ApplyComplaint() {
       hp_company: "",
     },
   });
-
-  const msg = form.watch("message") ?? "";
-  const remaining = Math.max(0, MAX_CHARS - msg.length);
 
   async function onSubmit(values: FormValues) {
     setServerError(null);
@@ -175,24 +164,19 @@ export default function ApplyComplaint() {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <div className="flex items-center justify-between">
-                      <FormLabel htmlFor="message">الرسالة</FormLabel>
-                      <span className="text-xs text-muted-foreground">
-                        متبقي {remaining} / {MAX_CHARS}
-                      </span>
-                    </div>
+                    <FormLabel htmlFor="message">الرسالة</FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
                         id="message"
                         placeholder="قم بكتابة شكواك بوضوح..."
                         rows={6}
-                        maxLength={MAX_CHARS}
+                        maxLength={500}
                         className="resize-none h-64"
                       />
                     </FormControl>
                     <FormDescription>
-                      الرسالة يجب أن تكون بين {MIN_CHARS} و {MAX_CHARS} حرفًا.
+                      الرسالة يجب أن تكون بين 10 و 500 حرفًا.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
