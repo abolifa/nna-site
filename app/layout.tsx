@@ -89,10 +89,6 @@ export const metadata: Metadata = {
     shortcut: ["/favicon.ico"],
   },
   manifest: "/site.webmanifest",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0B0B0B" },
-  ],
 };
 
 export const viewport: Viewport = {
@@ -114,7 +110,7 @@ export default function RootLayout({
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     sameAs: [
-      "https://www.facebook.com/profile.php?id=61575060608329#",
+      "https://www.facebook.com/568249826380788",
       "https://x.com/your-handle",
       "https://instagram.com/your-page",
       "https://youtube.com/@your-page",

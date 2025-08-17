@@ -105,19 +105,17 @@ export default function SiteFooter() {
         <div className="grid gap-10 py-10 md:grid-cols-2 lg:grid-cols-4 divide-x">
           {/* Brand & mission */}
           <section aria-labelledby="footer-brand" className="space-y-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center gap-1 px-5">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 width={48}
                 height={48}
-                className="h-12 w-auto object-contain"
-                priority
+                className="w-16 h-auto"
               />
               <div className="leading-tight">
                 <h2 id="footer-brand" className="font-bold text-sm text-center">
-                  الهيئة الوطنية
-                  <p> لأمراض الكلى</p>
+                  الهيئة الوطنية لأمراض الكلى
                 </h2>
               </div>
             </div>
