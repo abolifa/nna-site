@@ -10,21 +10,37 @@ import { format } from "date-fns";
 import { arSA } from "date-fns/locale";
 import { CalendarDays, Loader, MapPin } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+
+/* --- added: simple persistent uid --- */
+function getUid() {
+  const k = "romuz_uid";
+  try {
+    let id = localStorage.getItem(k);
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(k, id);
+    }
+    return id;
+  } catch {
+    return "nouid";
+  }
+}
 
 const SinglePost = () => {
-  const { slug } = useParams();
+  const { slug: rawSlug } = useParams();
+  const slug = Array.isArray(rawSlug)
+    ? rawSlug.join("/")
+    : String(rawSlug ?? "");
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["post", slug],
     queryFn: async () => {
       const res = await api.get(`/posts/${slug}`);
       return res.data as Post;
     },
+    enabled: !!slug,
   });
-
-  if (isError) {
-    return <ErrorComponent error={error as Error} keyParam={slug} />;
-  }
 
   const { data: related } = useQuery({
     queryKey: ["relatedPosts", slug],
@@ -38,6 +54,18 @@ const SinglePost = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [slug]);
+  const sentRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!slug) return;
+    if (sentRef.current === slug) return;
+    sentRef.current = slug;
+    const uid = getUid();
+    api.post("/track-view", { slug, uid });
+  }, [slug]);
+
+  if (isError) {
+    return <ErrorComponent error={error as Error} keyParam={slug} />;
+  }
 
   return (
     <div className="border p-4 flex flex-col w-full space-y-3">
@@ -66,12 +94,11 @@ const SinglePost = () => {
           </span>
         </div>
       </div>
-      {/* End Data & Location */}
+
       {/* Title */}
       <h1 className="text-xl font-bold line-clamp-2">
         {isLoading ? <Skeleton className="w-full h-8" /> : data?.title}
       </h1>
-      {/* End Title */}
 
       {/* Tags */}
       <div className="flex flex-wrap gap-3">
@@ -81,7 +108,6 @@ const SinglePost = () => {
           </span>
         ))}
       </div>
-      {/* End Tags */}
 
       {/* Image Section */}
       <div className="w-full">
@@ -98,7 +124,6 @@ const SinglePost = () => {
           />
         )}
       </div>
-      {/* End Image Section */}
 
       {/* Content */}
       <div>
@@ -112,7 +137,7 @@ const SinglePost = () => {
           <p
             className="text-justify text-md leading-loose"
             dangerouslySetInnerHTML={{ __html: data?.content ?? "" }}
-          ></p>
+          />
         )}
       </div>
 
@@ -121,9 +146,9 @@ const SinglePost = () => {
         <div className="mt-6 space-y-4">
           <h2 className="text-lg font-bold">منشورات ذات صلة</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {related.map((post) => {
-              return <PostContainer key={post.id} post={post} />;
-            })}
+            {related.map((post) => (
+              <PostContainer key={post.id} post={post} />
+            ))}
           </ul>
         </div>
       ) : null}
