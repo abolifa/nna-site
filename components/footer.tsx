@@ -50,7 +50,7 @@ const LINKS_PRIMARY: QuickLink[] = [
 const LINKS_PORTALS: QuickLink[] = [
   { label: "الخريطة التفاعلية", href: "/map" },
   { label: "بوابة المراكز", href: "https://portal.romuz.com.ly" },
-  { label: "بوابة الموظفين", href: "https://romuz.com.ly" },
+  { label: "بوابة الموظفين", href: "https://app.romuz.com.ly" },
 ];
 
 const CONTACT = {
