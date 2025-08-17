@@ -16,7 +16,6 @@ const PrivacyPage = () => {
     queryKey: ["privacy-policy"],
     queryFn: async () => {
       const res = await api.get("/settings/privacy-policy");
-      console.log(res.data);
       return res.data as PrivacyPolicy;
     },
   });

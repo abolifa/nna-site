@@ -16,7 +16,6 @@ const TermsOfServicePage = () => {
     queryKey: ["terms"],
     queryFn: async () => {
       const res = await api.get("/settings/terms");
-      console.log(res.data);
       return res.data as TermsOfService;
     },
   });

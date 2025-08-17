@@ -16,7 +16,6 @@ const AboutPage = () => {
     queryKey: ["about"],
     queryFn: async () => {
       const res = await api.get("/settings/about");
-      console.log(res.data);
       return res.data as About;
     },
   });

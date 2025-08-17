@@ -19,7 +19,6 @@ export default function LatestPosts() {
     queryKey: ["latestPosts", page],
     queryFn: async () => {
       const res = await api.get(`/posts?page=${page}`);
-      console.log(res.data);
       return res.data as PaginatedPosts;
     },
   });
