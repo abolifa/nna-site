@@ -38,9 +38,10 @@ export type UnitType =
   | "office";
 
 export interface Employee {
-  role: string;
+  position?: string;
   name: string;
   phone?: string;
+  email?: string;
 }
 
 export interface StructureNode {
@@ -330,8 +331,9 @@ const StructurePage: React.FC = () => {
       const inEmp = normalizeEmployees(n.employees).some(
         (e) =>
           e.name?.toLowerCase().includes(q) ||
-          e.role?.toLowerCase().includes(q) ||
-          e.phone?.toLowerCase().includes(q)
+          e.position?.toLowerCase().includes(q) ||
+          e.phone?.toLowerCase().includes(q) ||
+          e.email?.toLowerCase().includes(q)
       );
       return inSelf || inEmp;
     },
@@ -555,11 +557,22 @@ const StructurePage: React.FC = () => {
                               {e.name}
                             </div>
                             <div className="text-xs text-muted-foreground">
-                              {e.role}
+                              {e.position}
                             </div>
                             {e.phone && (
                               <div className="text-xs" dir="ltr">
                                 {e.phone}
+                              </div>
+                            )}
+                            {e.email && (
+                              <div className="text-xs">
+                                <a
+                                  href={`mailto:${e.email}`}
+                                  className="underline"
+                                  dir="ltr"
+                                >
+                                  {e.email}
+                                </a>
                               </div>
                             )}
                           </li>

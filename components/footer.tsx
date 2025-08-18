@@ -20,7 +20,7 @@ type QuickLink = { label: string; href: string };
 const SOCIALS: Social[] = [
   {
     label: "Facebook",
-    href: "https://facebook.com/your-page",
+    href: "https://www.facebook.com/568249826380788",
     icon: <Facebook className="size-4" />,
   },
   {
